@@ -24,6 +24,11 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
+      - name: List published files
+        run: |
+          echo "Listing files in the current directory..."
+          dir .
+
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
