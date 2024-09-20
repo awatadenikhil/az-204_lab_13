@@ -24,19 +24,14 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: List published files
-        run: |
-          echo "Listing files in the current directory..."
-          dir .
-
       - name: dotnet publish
-        run: dotnet publish -c Release -o ./myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ./myapp
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
@@ -56,9 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C89086D5A3FA4A47AE652002CFFA17A5 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_31399A0D2BD4441BABB30643E73EB34C }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9A40D37220E74E61A70A35B967DD4215 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D2BDF23917D3430B8B59B9B8B217E193 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B4F276A641974CA18732A82D798A143E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C4B97003715F4793B11DDBD3317D9119 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
